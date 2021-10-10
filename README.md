@@ -175,4 +175,30 @@ roscore
 ```
 Type 'Ctrl' + 'C' to end it.  ROS Noetic has been successfully installed.
 
-### Step 5: Install other ROS tools.
+### Step 5: Make the catkin workspace.
+- Go to the catkin source folder and make it a catkin workspace.
+```
+cd ~/ros_catkin_ws/
+```
+```
+catkin_make
+```
+
+### Step 6: Install other ROS tools.
+- Nothing yet.
+
+### Step 7: Install this repo.
+- Clone this repo to the catkin workspace.
+```
+cd ~/ros_catkin_ws/src
+```
+```
+git clone 
+```
+Make the repo.
+```
+cd ~/ros_catkin_ws/
+```
+```
+catkin_make
+```
