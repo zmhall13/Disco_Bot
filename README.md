@@ -1,6 +1,9 @@
 # Disco_Bot
 Created: 2021-10-10
+
 Last Updated: 2021-10-10
+
+This robot will be built to carry 25-30 discs; navigate wooded/open terrain in most conditions the average player could be playing in; keep score; respond to voice commands; and carry other esential items. 
 
 ## Setup
 ### Step 1: Format the SD Card
