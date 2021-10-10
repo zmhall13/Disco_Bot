@@ -193,7 +193,7 @@ catkin_make
 cd ~/ros_catkin_ws/src
 ```
 ```
-git clone 
+git clone https://github.com/zmhall13/Disco_Bot.git
 ```
 Make the repo.
 ```
