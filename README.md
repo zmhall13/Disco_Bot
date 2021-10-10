@@ -3,10 +3,10 @@ Created: 2021-10-10
 
 Last Updated: 2021-10-10
 
-This robot will be built to carry 25-30 discs; navigate wooded/open terrain in most conditions the average player could be playing in; keep score; respond to voice commands; and carry other esential items. 
+This robot will be built to carry 25-30 discs; navigate wooded/open terrain in most conditions the average player could be playing in; keep score; respond to voice commands; and carry other esential items.  This repo is built on Raspbian Buster and ROS Noetic.
 
 ## Setup
-### Step 1: Format the SD Card
+### Step 1: Format the SD Card.
 - Remove the micro SD card from the Pi.  Put the micro SD Card into an SD card adapter and plug into your computer.
 - Download the Raspberry Pi Imager Tool found here: https://www.raspberrypi.com/software/.  Download the one that best suits your computer's operating system (OS).
 - Once downloaded, run the installer.  This will install the Imager and then open it after installing.  If it is already installed, you can just run the Imager.  Running the already installed imager will bring up an install page, which is odd, but correct.  Follow on screen prompts to set it up.  
@@ -69,3 +69,110 @@ sudo raspi-config
 - Now go to `5 Localization Options`, `L4 WLAN Country`, select `US`, then `Enter` to confirm.
 - Now go to `6 Update` to update the changes and update the tool to the lastest version.  Once this completes, you're donw with the configuration tool.  Select `FINISH` to escape.
 - Reboot the Pi to make the changes.
+
+### Step 4: Install the ROS Noetic Repo on the Pi and set up.
+- In the terminal, type the following to add the ROS repo to the Pi:
+```
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu buster main" > /etc/apt/sources.list.d/ros-noetic.list'
+```
+To verify it was added successfully, the following command should return the location 'deb http://packages.ros.org/ros/ubuntu buster main'.
+```
+cat /etc/apt/sources.list.d/ros-noetic.list
+```
+- Add the official ROS key.
+```
+sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+```
+- Update ROS package index to get all of the repo's Noetic package information.
+```
+sudo apt update
+```
+- Install and build ROS dependencies.  This includes: ROS desktop, ROS desktop-full, ROS-base, and ROS-core.
+```
+sudo apt-get install -y python-rosdep python-rosinstall-generator python-wstool python-rosinstall build-essential cmake
+```
+- Initialize rosdep, the tool for installing ROS dependencies.
+```
+sudo rosdep init
+```
+Verify 20-default.list has been written to correctly.  It should say 'newer distributions (Groovy, Hydro, …) must not be listed anymore, they are being fetched from the rosdistro index.yaml instead'
+```
+cat /etc/ros/rosdep/sources.list.d/20-default.list
+```
+- Fetch package info from the repo we just initialized.
+```
+rosdep update
+```
+- Create the catkin workspace folder location.
+```
+mkdir ~/ros_catkin_ws
+```
+```
+cd ~/ros_catkin_ws
+```
+- Use the ros install generator to install ros_comm.  Desktop and desktop_full are too big for the Pi.  Any additional packages need to be installed seperately.
+```
+rosinstall_generator ros_comm --rosdistro noetic --deps --wet-only --tar > noetic-ros_comm-wet.rosinstall
+```
+- Fetch all the remote repos specified from the noetic-ros_comm-wet.rosinstall.
+```
+wstool init src noetic-ros_comm-wet.rosinstall
+```
+It will take a few minutes and will output update complete when done.
+- Before compiling the packages in the src folder, we install all system dependencies using rosdep install.
+```
+rosdep install -y --from-paths src --ignore-src --rosdistro noetic -r --os=debian:buster
+```
+It will end with: `All required rosdeps installed successfully`.
+- Increase the swap space size.  First, turn it off.
+```
+sudo dphys-swapfile swapoff
+```
+Next, increase the swap space size from 100 MB to 1024 MB (1 GB).
+```
+sudoedit /etc/dphys-swapfile
+```
+Now, call dphys-swapfile to set up the swap.
+```
+sudo dphys-swapfile setup
+```
+Finally, turn swap back on.
+```
+sudo dphys-swapfile swapon
+```
+Check the swap status by running:
+```
+free -m
+```
+- Compile Noetic packages.
+```
+sudo src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release --install-space /opt/ros/noetic -j1 -DPYTHON_EXECUTABLE=/usr/bin/python3
+```
+Uses Release so it won’t generate debug symbols.  Everything will be installed in /opt/ros/noetic, just like if we install Noetic on Ubuntu.  By default catkin will use up all the cores for the compile jobs, but it becomes an issue on Raspberry Pi 4 because it has limited memory and every compile job consumes memory. Limiting the number of jobs to 1 (j1) reduces the possibility to run into low memory issue.  Specify Python3 as the python executable. This is very important because Noetic only support 3, unlike previous ROS distros such as Melodic.
+ROS should now be fully installed.
+- Verify the ROS installation. First, permenantly source the bash.
+```
+cd ~
+```
+```
+nano .bashrc
+```
+In the bashrc file, add the following line to the bottom:
+```
+source /opt/ros/noetic/setup.bash
+```
+This sources the ROS environment for the future.  For this session only, run the following in the terminal to source it until the next reboot.
+```
+source /opt/ros/noetic/setup.bash
+```
+Check if ROS Noetic was installed correctly by running the following.  It should return the location in memory where ROS is running.
+```
+roscd
+```
+The location will be something like '/opt/ros/noetic`.  Or you can run the roscore to verify correct setup.
+```
+roscore
+```
+Type 'Ctrl' + 'C' to end it.  ROS Noetic has been successfully installed.
+
+### Step 5: Install other ROS tools.
