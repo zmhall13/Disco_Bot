@@ -3,7 +3,7 @@ Created: 2021-10-10
 Last Updated: 2021-10-10
 
 ## Setup
-## Step 1: Format the SD Card
+### Step 1: Format the SD Card
 - Remove the micro SD card from the Pi.  Put the micro SD Card into an SD card adapter and plug into your computer.
 - Download the Raspberry Pi Imager Tool found here: https://www.raspberrypi.com/software/.  Download the one that best suits your computer's operating system (OS).
 - Once downloaded, run the installer.  This will install the Imager and then open it after installing.  If it is already installed, you can just run the Imager.  Running the already installed imager will bring up an install page, which is odd, but correct.  Follow on screen prompts to set it up.  
@@ -37,7 +37,7 @@ hostname -I
 ```
 It should return an IP address that looks similar to this 10.0.0.2.  If it does not return an IP, your ssid or password are wrong.  This step gives us the IP address that we will use in Step 2 to remote into the Pi.
 
-## Step 2: Remote into the Pi.
+### Step 2: Remote into the Pi.
 - Download and install PuTTy on your computer, if it is not already installed.  Go here https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html to download the latest version for your computer.  If you have a windows machine, you will want the latest download in the `Package Files` section under the `MSI header`.  Most people will get the 64-bit x86 version.  It will look something like this `putty-64bit-0.76-installer.msi`.
 - Follow the installer and put it some place you can find it easily.
 - Before the Pi will allow you to remote in, you will porbably have to enable the secure shell (SSH).  Start that process by going to the pi and typing the following:
@@ -56,7 +56,7 @@ sudo reboot now
 - Now we can log in using PuTTY.  Use `hostname -I` to get the IP again if not saved.  Open PuTTY and make sure `Session` is selected in the top left under `Category`.  In the `Host Name` blank, type the IP of the Raspberry Pi.  Make sure the `SSH` bubble is selected below the IP and the `Port` is set to 22.  Save this setup as a profile for easier loading by entering a name in the `Saved Session` blank and clicking `Save`.  When you reboot the Pi from PuTTY, you lose connection with it and you have to do this step everytime you want to open it.  It saves time to create an easy to remember profile name so you can start PuTTY, select the profile name, and hit load.  Now select `Open` at the bottom right to SSH into the Pi's terminal.
 - Log in again.  Now you can run commands from you computer to control the Pi.
 
-## Step 3: Configure the Pi's settings.
+### Step 3: Configure the Pi's settings.
 - In the terminal (Pi or PuTTy), type the following to begin setting up the Pi for your area:
 ```
 sudo raspi-config
