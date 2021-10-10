@@ -183,6 +183,17 @@ cd ~/ros_catkin_ws/
 ```
 catkin_make
 ```
+- Source the catkin development folder.
+```
+cd ~
+```
+```
+nano .bashrc
+```
+Add the following to the bottom of the file.
+```
+source ~/ros_catkin_ws/devel/setup.bash
+```
 
 ### Step 6: Install other ROS tools.
 - Nothing yet.
@@ -202,3 +213,4 @@ cd ~/ros_catkin_ws/
 ```
 catkin_make
 ```
+- Test some nodes and rosgraph.
