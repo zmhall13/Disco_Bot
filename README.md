@@ -70,7 +70,17 @@ sudo raspi-config
 - Now go to `6 Update` to update the changes and update the tool to the lastest version.  Once this completes, you're donw with the configuration tool.  Select `FINISH` to escape.
 - Reboot the Pi to make the changes.
 
-### Step 4: Install the ROS Noetic Repo on the Pi and set up.
+### Step 4: Install tmux for use with ROS.
+- In the terminal, type the following to install tmux.
+```
+cd ~
+```
+```
+sudo apt install tmux
+```
+It will ask to continue, just type `y`.
+
+### Step 5: Install the ROS Noetic Repo on the Pi and set up.
 - In the terminal, type the following to add the ROS repo to the Pi:
 ```
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu buster main" > /etc/apt/sources.list.d/ros-noetic.list'
@@ -175,7 +185,7 @@ roscore
 ```
 Type 'Ctrl' + 'C' to end it.  ROS Noetic has been successfully installed.
 
-### Step 5: Make the catkin workspace.
+### Step 6: Make the catkin workspace.
 - Go to the catkin source folder and make it a catkin workspace.
 ```
 cd ~/ros_catkin_ws/
@@ -195,18 +205,20 @@ Add the following to the bottom of the file.
 source ~/ros_catkin_ws/devel/setup.bash
 ```
 
-### Step 6: Install other ROS tools.
-- Nothing yet.
-
-### Step 7: Install this repo.
-- Clone this repo to the catkin workspace.
+### Step 7: Install repos.
+- Open the catkin workspace directory.
 ```
 cd ~/ros_catkin_ws/src
 ```
+- Clone this repo to the catkin workspace.
 ```
 git clone https://github.com/zmhall13/Disco_Bot.git
 ```
-Make the repo.
+- Clone the teleop_twist_keyboard repo.
+```
+git clone https://github.com/ros-teleop/teleop_twist_keyboard.git
+```
+- Make all repos.
 ```
 cd ~/ros_catkin_ws/
 ```
