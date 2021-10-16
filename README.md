@@ -219,8 +219,16 @@ git clone https://github.com/zmhall13/Disco_Bot.git
 git clone https://github.com/ros-teleop/teleop_twist_keyboard.git
 ```
 - Clone the common messages (geometry_msgs and more) repo.
+Remove the old common_msgs package first.
+```
+rm -rf common_msgs/
+```
 ```
 git clone https://github.com/ros/common_msgs.git
+```
+- Clone the ros_controllers repo to use diff_drive_controller.
+```
+svn checkout https://github.com/ros-controls/ros_controllers/trunk/diff_drive_controller
 ```
 - Make all repos.
 ```
