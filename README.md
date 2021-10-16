@@ -85,7 +85,7 @@ It will ask to continue, just type `y`.
 ```
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu buster main" > /etc/apt/sources.list.d/ros-noetic.list'
 ```
-To verify it was added successfully, the following command should return the location 'deb http://packages.ros.org/ros/ubuntu buster main'.
+To verify it was added successfully, the following command should return the location `deb http://packages.ros.org/ros/ubuntu buster main`.
 ```
 cat /etc/apt/sources.list.d/ros-noetic.list
 ```
@@ -228,8 +228,24 @@ git clone https://github.com/ros/common_msgs.git
 ```
 - Clone the ros_controllers repo to use diff_drive_controller.
 ```
-svn checkout https://github.com/ros-controls/ros_controllers/trunk/diff_drive_controller
+git clone https://github.com/ros-controls/ros_controllers.git
 ```
+- Clone the ros_control repo since it is a dependency of diff_drive_controller.
+```
+git clone https://github.com/ros-controls/ros_control.git
+```
+- Clone the realtime_tools repo since it is a dependency of ros_control.
+```
+git clone https://github.com/ros-controls/realtime_tools.git
+```
+- Clone the urdf repos since it is a dependency of diff_drive_controller.
+```
+git clone https://github.com/ros/urdf.git
+```
+```
+git clone https://github.com/ros/urdfdom_headers.git
+```
+*** Breaks when making this one.***
 - Make all repos.
 ```
 cd ~/ros_catkin_ws/
