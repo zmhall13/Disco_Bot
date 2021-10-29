@@ -1,4 +1,5 @@
 # Disco_Bot
+
 Created: 2021-10-10
 
 Last Updated: 2021-10-10
@@ -6,7 +7,9 @@ Last Updated: 2021-10-10
 This robot will be built to carry 25-30 discs; navigate wooded/open terrain in most conditions the average player could be playing in; keep score; respond to voice commands; and carry other esential items.  This repo is built on Raspbian Buster and ROS Noetic.
 
 ## Setup
-### Step 1: Format the SD Card.
+
+### Step 1: Format the SD Card
+
 - Remove the micro SD card from the Pi.  Put the micro SD Card into an SD card adapter and plug into your computer.
 - Download the Raspberry Pi Imager Tool found here: https://www.raspberrypi.com/software/.  Download the one that best suits your computer's operating system (OS).
 - Once downloaded, run the installer.  This will install the Imager and then open it after installing.  If it is already installed, you can just run the Imager.  Running the already installed imager will bring up an install page, which is odd, but correct.  Follow on screen prompts to set it up.  
@@ -40,8 +43,10 @@ hostname -I
 ```
 It should return an IP address that looks similar to this 10.0.0.2.  If it does not return an IP, your ssid or password are wrong.  This step gives us the IP address that we will use in Step 2 to remote into the Pi.
 
-### Step 2: Remote into the Pi.
-#### Using PuTTy.
+### Step 2: Remote into the Pi
+
+#### Using PuTTy
+
 - Download and install PuTTy on your computer, if it is not already installed.  Go here https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html to download the latest version for your computer.  If you have a windows machine, you will want the latest download in the `Package Files` section under the `MSI header`.  Most people will get the 64-bit x86 version.  It will look something like this `putty-64bit-0.76-installer.msi`.
 - Follow the installer and put it some place you can find it easily.
 - Before the Pi will allow you to remote in, you will porbably have to enable the secure shell (SSH).  Start that process by going to the pi and typing the following:
@@ -59,7 +64,9 @@ sudo reboot now
 ```
 - Now we can log in using PuTTY.  Use `hostname -I` to get the IP again if not saved.  Open PuTTY and make sure `Session` is selected in the top left under `Category`.  In the `Host Name` blank, type the IP of the Raspberry Pi.  Make sure the `SSH` bubble is selected below the IP and the `Port` is set to 22.  Save this setup as a profile for easier loading by entering a name in the `Saved Session` blank and clicking `Save`.  When you reboot the Pi from PuTTY, you lose connection with it and you have to do this step everytime you want to open it.  It saves time to create an easy to remember profile name so you can start PuTTY, select the profile name, and hit load.  Now select `Open` at the bottom right to SSH into the Pi's terminal.
 - Log in again.  Now you can run commands from you computer to control the Pi.
-#### Using a Linux OS.
+
+#### Using a Linux OS
+
 - Before the Pi will allow you to remote in, you will porbably have to enable the secure shell (SSH).  Start that process by going to the pi and typing the following:
 ```
 sudo raspi-config
@@ -79,7 +86,8 @@ ssh pi@Disco-Bot
 ```
 Enter the password for the Pi user's login.
 
-### Step 3: Configure the Pi's settings.
+### Step 3: Configure the Pi's settings
+
 - In the terminal (Pi or PuTTy), type the following to begin setting up the Pi for your area:
 ```
 sudo raspi-config
@@ -90,7 +98,8 @@ sudo raspi-config
 - Now go to `6 Update` to update the changes and update the tool to the lastest version.  Once this completes, you're donw with the configuration tool.  Select `FINISH` to escape.
 - Reboot the Pi to make the changes.
 
-### Step 4: Install tmux for use with ROS.
+### Step 4: Install tmux for use with ROS
+
 - In the terminal, type the following to install tmux.
 ```
 cd ~
@@ -100,7 +109,8 @@ sudo apt install tmux
 ```
 It will ask to continue, just type `y`.
 
-### Step 5: Install the ROS Noetic Repo on the Pi and set up.
+### Step 5: Install the ROS Noetic Repo on the Pi and set up
+
 - In the terminal, type the following to add the ROS repo to the Pi:
 ```
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -208,7 +218,8 @@ roscore
 ```
 Type 'Ctrl' + 'C' to end it.  ROS Noetic has been successfully installed.
 
-### Step 6: Make the catkin workspace.
+### Step 6: Make the catkin workspace
+
 - Go to the catkin source folder and make it a catkin workspace.
 ```
 cd ~/catkin_ws/
@@ -228,7 +239,8 @@ Add the following to the bottom of the file.
 source ~/catkin_ws/devel/setup.bash
 ```
 
-### Step 7: Install repos.
+### Step 7: Install repos
+
 - Open the catkin workspace directory.
 ```
 cd ~/catkin_ws/src
@@ -249,5 +261,6 @@ cd ~/catkin_ws/
 catkin_make
 ```
 
-### Step 8: Install ROS packages.
+### Step 8: Install ROS packages
+
 - Install diff_drive_controller
