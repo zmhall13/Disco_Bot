@@ -15,7 +15,7 @@ This markdown file (.md) is a step by step tutorial for installing ROS Noetic on
 
 
 
-# Istallation of ROS on Ubuntu:
+# Installation of ROS on Ubuntu:
 
 1.) The sources list needs to be set up so Ubuntu will accept software from `packages.ros.org`:
 
