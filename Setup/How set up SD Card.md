@@ -70,9 +70,13 @@ nameservers:
 optional: true
 ```
 
-* Hit `Ctrl` + `x`, then `y`, then `Enter` to save and exit.
+* Hit `Ctrl` + `x`, then `y`, then `Enter` to save and exit.  Restart the Pi so it will try to connect to the network.
 
-4. To connect remotely to the Pi, you need the Pi's IP and to open an SSH client, such as PuTTy or a VM with an Ubuntu terminal opened.  To get the IP, run:
+```
+sudo shutdown -r now
+```
+
+4. To connect remotely to the Pi, you need the Pi's IP and to open an SSH client, such as PuTTy or a VM with an Ubuntu terminal opened.  To get the IP, run the following on the Pi terminal:
 
 ```
 hostname -I
@@ -86,17 +90,13 @@ ssh ubuntu@XXX.XXX.XXX.XXX
 
 * Plug in the IP of the Pi for the X's.  It will ask for the username and password, which is still `ubuntu` for both.  WHen it asks to confirm the connection, type `yes` to confirm.
 
-5. Restart the Pi to let changes take effect and test the wifi connection.
-
-```
-sudo shutdown -r now
-```
-
-* After logging back in, run the following to test ping Google's DNS server:
+5. After logging in, run the following to test ping Google's DNS server:
 
 ```
 sudo ping -c 5 8.8.8.8
 ```
+
+* Use `Ctrl` + `c` to stop the ping once a few go through.  You will know they have gone through when it gives a time.
 
 6. Set the timezone by running a list all timezones command:
 
@@ -132,7 +132,7 @@ sudo apt update
 sudo apt upgrade
 ```
 
-* Once all files are updated and upgraded, run `autoremove` to get rid of all the old files.
+* It will ask if you want to proceed with the upgrade relatively soon after running the command, so type `y` and hit `Enter`.  Once all files are updated and upgraded, run `autoremove` to get rid of all the old files.
 
 ```
 sudo apt autoremove
