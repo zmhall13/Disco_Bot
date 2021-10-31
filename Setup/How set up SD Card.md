@@ -239,3 +239,15 @@ sudo apt install lubuntu-desktop
 ```
 sudo shutdown -r now
 ```
+
+12. Install Bluetooth Driver.
+
+```
+sudo apt install pi-bluetooth
+```
+
+* Restart to apply changes.
+
+```
+sudo shutdown -r now
+```
